@@ -1,0 +1,74 @@
+2022-09-14
+---------------------
+* Update the model to v3. The new model is anchor-free instead of anchor-based.
+* The number of parameters is sharply dropped to only 55K.
+* The runtime speed has been improved to varying degrees on all platforms.
+* The performance on WIDER Face is improving from 0.856/0.842/0.727 to 0.887/0.871/0.768.
+
+2021-06-09
+---------------------
+* Now the model is depth-wise based.
+* The number of parameters is sharply dropped to only 85K. File size of the PyTorch model is 399KB, while ONNX is 337KB.
+* The runtime speed is slightly faster on X86 CPU, and 20% faster on ARM CPU.
+* int8-quantization is dropped, but float operations are carried out by AVX2/AVX512/NEON accordingly.
+
+2020-02-27
+---------------------
+* Update the model to v3. The computational cost similar with the previous one.
+* Now the algorithm can support 5 landmakr detection.
+* AVX512 support is added.
+
+2019-09-14
+---------------------
+* Update the model to v2. The computational cost is doubled. But the speed is almost the same with the previous one because int8 convolutional operation is carried out by AVX2.
+* NEON support is not finished.
+
+2019-03-13
+---------------------
+* Release the source code and the model files. Removed the binary libary. 
+
+2018-11-17
+---------------------
+* Replaced the AdaBoost methods with a CNN based one.
+
+2017-02-24
+---------------------
+* landmark detection speed reaches to 0.8ms per face. The former version is 1.7ms per face.
+
+2017-01-20
+---------------------
+* 68-point landmark detection added.
+
+2016-11-24
+---------------------
+* Added benchmark.cpp which can run face detection in multiple threads using OpenMP.
+
+2016-11-16
+---------------------
+* Bugs in the previous version were fixed. std::vector was removed from the API because it can cause error.
+
+2016-11-10
+---------------------
+* The API was updated. std::vector was involved.
+* The functions can be called in multiple threads at the same time.
+
+2016-10-6
+---------------------
+* The algorithm has been speeded up greatly (2x to 3x). 
+* The true positive rates (FDDB) have been improved 1% to 2% at FP=100.
+* Multi-core parallelization has been disabled. The detection time is still the same.
+
+2016-9-16
+---------------------
+* Speedup again.
+* Change function name facedetect_frontal_tmp() to facedetect_frontal_surveillance(). This function now uses a new trained classifier which can achieve a higher detection speed.
+
+2016-6-28
+---------------------
+* 64-bit dll added since there are so many users request it.
+* An easter egg is hidden in the 64-bit dll. Can you find it?
+
+2016-6-8
+---------------------
+* Speedup 1.2x
+* Added an experimental function facedetect_frontal_tmp(). The function can gain a higher detection rate in video surveillance.
