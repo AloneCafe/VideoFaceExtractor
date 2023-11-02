@@ -42,7 +42,7 @@ endif()
 
 	#target_link_libraries(${EXE} PRIVATE facedetection)
 	#message(INFO ${facedetection_INCLUDE_DIRS})
-	target_include_directories(${EXE} PRIVATE deps/build/include/facedetection)
+	target_include_directories(${EXE} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/deps/build/include/facedetection)
 endif()
 
 find_package(Boost COMPONENTS program_options REQUIRED)

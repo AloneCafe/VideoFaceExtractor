@@ -81,7 +81,7 @@ IF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU"
     #use -O3 to speedup
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 ENDIF()
-:
+
 if(ENABLE_AVX512)
 	add_definitions(-D_ENABLE_AVX512)
     if (MSVC)
