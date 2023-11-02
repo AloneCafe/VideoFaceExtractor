@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/App.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/FaceDetector.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/FaceDetector.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/ListWriter.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Main.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Utils.cpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Utils.h" charset="UTF-8" />
+  </component>
+</project>
