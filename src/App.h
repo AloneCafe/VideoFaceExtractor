@@ -53,29 +53,37 @@ int App::only_detect_run(const std::string& inFile,
                     const CUTCFG& cutcfg,
                     const std::string& outLst,
                     const std::string & outFlt) {
+    int64_t begin, end;
+    begin = cv::getTickCount();
+
+    std::vector<std::thread> tr_grp(0);
+    //auto cpus = 1;
+    auto cpus = std::thread::hardware_concurrency();
+    size_t framesPerThread;
+    double frameTotalCount, fps;
+    int ret = 0;
+
     // 打开视频文件，以便获取帧率、总帧数
     cv::VideoCapture cap(inFile);
     if (!cap.isOpened()) {
         std::cout << "无法打开视频文件" << std::endl;
-        return 1;
+        ret = 1;
+        goto END;
     }
-    double frameTotalCount = cap.get(cv::CAP_PROP_FRAME_COUNT);
-    double fps = cap.get(cv::CAP_PROP_FPS);
+    frameTotalCount = cap.get(cv::CAP_PROP_FRAME_COUNT);
+    fps = cap.get(cv::CAP_PROP_FPS);
     std::cout << "total frames: " << frameTotalCount << std::endl;
     cap.release();
 
-    //auto cpus = 1;
-    auto cpus = std::thread::hardware_concurrency();
-    auto framesPerThread = frameTotalCount / cpus;
+    framesPerThread = frameTotalCount / cpus;
 
     // 初始化输出清单
-    bool ret = ListWriter::globalOpen(outLst, outFlt);
+    ret = ListWriter::globalOpen(outLst, outFlt);
     if (!ret) {
         std::cerr << "错误，无法打开输出文件" << std::endl;
-        return 1;
+        ret = 1;
+        goto END;
     }
-
-    std::vector<std::thread> tr_grp;
 
     // 按硬件并发数分割任务
     for (size_t i = 0; i < cpus; ++i) {
@@ -99,7 +107,12 @@ int App::only_detect_run(const std::string& inFile,
     }
 
     ListWriter::globalClose();
-    return 0;
+
+END:
+    end = cv::getTickCount();
+    std::cout << "[*] detect procedure " << (ret == 0 ? "completed" : "failed") << ", spend " << double(end-begin) / cv::getTickFrequency() << "s" << std::endl;
+
+    return ret;
 }
 
 template <typename CUTCFG>
@@ -111,8 +124,11 @@ int App::full_run(
         const std::string& ffmpegPath,
         const std::string& outFile)
 {
-
-    only_detect_run(inFile, cutcfg, outLst, outFlt);
-    only_split_run(inFile, outLst, outFlt, ffmpegPath, outFile);
-	return 0;
+    int64_t begin, end;
+    begin = cv::getTickCount();
+    auto ret1 = only_detect_run(inFile, cutcfg, outLst, outFlt);
+    auto ret2 = only_split_run(inFile, outLst, outFlt, ffmpegPath, outFile);
+    end = cv::getTickCount();
+    std::cout << "[*] progress " << (ret1 == 0 && ret2 == 0 ? "completed" : "failed" ) << ", spend " << double(end-begin) / cv::getTickFrequency() << "s" << std::endl;
+	return ret1 == 0 && ret2 == 0;
 }
