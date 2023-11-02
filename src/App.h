@@ -21,18 +21,6 @@ struct App {
 #ifdef __AVX__
 		std::cout << "AVX on" << std::endl;
 #endif
-#ifdef DLIB_HAVE_SSE2
-		std::cout << "DLIB_HAVE_SSE2 on" << std::endl;
-#endif
-#ifdef DLIB_HAVE_SSE3
-		std::cout << "DLIB_HAVE_SSE3 on" << std::endl;
-#endif
-#ifdef DLIB_HAVE_SSE41
-		std::cout << "DLIB_HAVE_SSE41 on" << std::endl;
-#endif
-#ifdef DLIB_HAVE_AVX
-		std::cout << "DLIB_HAVE_AVX on" << std::endl;
-#endif
 	}
 
     template <typename CUTCFG>
