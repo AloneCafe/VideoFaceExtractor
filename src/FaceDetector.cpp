@@ -24,7 +24,6 @@ FaceDetector::FaceDetector(const std::string & inFile, const CutConfig& cutcfg)
         std::cerr << "open video source failed." << std::endl;
     }
     _cutcfg = CutConfigByFrame(cutcfg, _vc.get(cv::CAP_PROP_FPS));
-    std::cout << "fps: " << getFPS() << std::endl;
 }
 
 bool
