@@ -24,6 +24,8 @@ public:
 
         cv::Mat image, resizedImage;
         _cap >> image;
+        if (image.empty())
+            return false;
         //cv::resize(image, resizedImage, cv::Size(320, 240));
         cv::resize(image, resizedImage, cv::Size(160, 120));
         //cv::resize(image, resizedImage, cv::Size(640, 480));

@@ -107,6 +107,7 @@ int App::only_detect_run(const std::string& inFile,
     }
 
     ListWriter::globalClose();
+    ret = 0;
 
 END:
     end = cv::getTickCount();
