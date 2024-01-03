@@ -15,6 +15,8 @@ add_executable (${EXE}
 "src/App.h" "src/App.cpp"
 src/CNN_Detector.cpp src/CNN_Detector.h src/Extractor.cpp src/Extractor.h)
 
+include_directories(include)
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET ${EXE} PROPERTY CXX_STANDARD 20)
 endif()

@@ -2,7 +2,7 @@
 #include "FaceDetector.h"
 #include "Utils.h"
 #include "ListWriter.h"
-
+#include <tqdm/tqdm.hpp>
 
 FaceDetector::FaceDetector(const std::string & inFile, const CutConfigByFrame& cutcfg)
 	: _cutcfg(cutcfg),
@@ -83,7 +83,9 @@ void FaceDetector::run_range(size_t left, size_t right, size_t step) {
     size_t lastFrameCount = 0, detectStartFrameCount = 0;
     double lastMs = 0., detectStartMs = 0.;
 
-	while (left <= right) {
+    const auto range_right = (right + 1 - left) / step;
+
+	for (auto _ : tq::trange(0ULL, range_right)) {
 
         auto hasFaces = detect();
 #if 1
@@ -147,11 +149,12 @@ void FaceDetector::run_range(size_t left, size_t right, size_t step) {
 #endif
 
 		CONT:
-		if (frameCount % 10000 == 0) {
-			std::cout << "thread " << std::this_thread::get_id() << ", reach frame: " << frameCount << std::endl;
-		}
+		//if (frameCount % 10000 == 0) {
+		//	std::cout << "thread " << std::this_thread::get_id() << ", reach frame: " << frameCount << std::endl;
+		//}
 
 		left += step;
+        continue;
 	}
 
     if (flagAcceptNewFace) // 要遇到的是新的脸

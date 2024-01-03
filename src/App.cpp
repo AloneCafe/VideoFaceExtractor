@@ -4,6 +4,9 @@
 #include "App.h"
 #include "ListWriter.h"
 
+std::map<int, std::shared_ptr<cv::VideoWriter>> App::outs;
+std::map<int, std::shared_ptr<CNN_Detector>> App::caps;
+
 int App::only_split_run(const std::string &inFile, const std::string &outLst, const std::string &outFlt,
                         const std::string &ffmpegPath, const std::string &outFile) {
 
